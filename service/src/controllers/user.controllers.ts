@@ -37,12 +37,21 @@ export class UserController {
       const { username, password } = req.body;
       const { token, user } = await userService.authUser(username, password);
 
-      res.cookie('token', token);
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        path: "/",
+      });
 
-      return res.status(HttpCodes.OK).json(HttpResponse(HttpCodes.OK, "Login exitoso", user, true));
+      return res
+        .status(HttpCodes.OK)
+        .json(HttpResponse(HttpCodes.OK, "Login exitoso", user, true));
     } catch (error: unknown) {
       const err = error as Error;
-      return res.status(HttpCodes.UNAUTHORIZED).json(HttpResponse(HttpCodes.UNAUTHORIZED, err.message, null, false));
+      return res
+        .status(HttpCodes.UNAUTHORIZED)
+        .json(HttpResponse(HttpCodes.UNAUTHORIZED, err.message, null, false));
     }
   }
 
