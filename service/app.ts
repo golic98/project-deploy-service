@@ -27,4 +27,8 @@ app.use("/api", vigilantRoute);
 
 app.use(errorHandler);
 
+app.get("/", (_req, res) => {
+  res.json({ ok: true, message: "API funcionando" });
+});
+
 export default app;
