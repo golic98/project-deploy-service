@@ -34,6 +34,15 @@ const userSchema = new mongoose.Schema({
         enum: ["admin", "vigilant", "normal", "user"],
         default: "normal",
         require: true
+    },
+    otpCode: {
+        type: String,
+        default: null,
+    },
+
+    otpExpires: {
+        type: Date,
+        default: null,
     }
 }, {
     timestamps: true
